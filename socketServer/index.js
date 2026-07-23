@@ -9,8 +9,9 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
+const trimTrailingSlash = (url) => (url ? url.replace(/\/+$/, "") : "");
 const PORT = process.env.PORT || 4000;
-const NEXT_BASE_URL = process.env.NEXT_BASE_URL || "http://localhost:3000";
+const NEXT_BASE_URL = trimTrailingSlash(process.env.NEXT_BASE_URL || "http://localhost:3000");
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
